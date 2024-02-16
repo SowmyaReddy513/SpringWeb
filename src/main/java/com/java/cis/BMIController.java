@@ -1,4 +1,5 @@
 package com.java.cis;
+
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -20,11 +21,12 @@ public class BMIController {
         System.out.println("Home Page Requested, locale = " + locale);
         return "input";
     }
+
     @RequestMapping(value = "/bmi", method = RequestMethod.POST)
     public String result(@RequestParam("height") double heightInInches,
                          @RequestParam("weight") double weightInPounds,
                          Model model) {
-        double bmi = weightInPounds / (heightInInches * heightInInches) * 703;
+        double bmi = Math.round((weightInPounds / (heightInInches * heightInInches) * 703) * 100.0) / 100.0; // Round to two decimal places
         model.addAttribute("bmi", bmi);
         return "result";
     }
